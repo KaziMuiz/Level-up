@@ -1,0 +1,1 @@
+Write this yourself (1 page, honest): what was hardest and why; what you'd do differently; one surprising thing. Real material: the stray `}` CSS bug, AI output that must be validated, testing inline scripts.
