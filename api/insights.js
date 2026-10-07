@@ -11,7 +11,7 @@ export default async function handler(req,res){
  const ctl=new AbortController(),t=setTimeout(()=>ctl.abort(),8000);
  try{
   const r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`,{method:'POST',signal:ctl.signal,headers:{'content-type':'application/json','x-goog-api-key':process.env.GEMINI_API_KEY},body:JSON.stringify({systemInstruction:{parts:[{text:SYSTEM}]},contents:[{role:'user',parts:[{text:JSON.stringify(facts)}]}],generationConfig:{responseMimeType:'application/json',responseSchema:SCHEMA,maxOutputTokens:800,temperature:0.3,thinkingConfig:{thinkingBudget:0}}})});
-  if(!r.ok)return res.status(502).json({error:'upstream'});
+  if(!r.ok){const d=(await r.text()).slice(0,300);console.error('gemini',r.status,d);return res.status(502).json({error:'upstream',status:r.status,detail:d})}
   let raw;try{raw=JSON.parse((await r.json()).candidates?.[0]?.content?.parts?.[0]?.text).insights}catch{return res.status(502).json({error:'invalid_output'})}
   const v=validateInsights(raw,facts);
   return v?res.status(200).json({insights:v}):res.status(502).json({error:'invalid_output'})
