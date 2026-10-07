@@ -75,7 +75,7 @@ footer{border-top:1px solid var(--ln);padding:28px 0;color:var(--mu);font-size:.
 <main id="top">
 <section class="hero"><div class="w grid hg">
  <div><h1><span class="hl">Your habits.</span><span>Your XP.</span><span>Your progression.</span></h1>
- <p class="lead">Log what you do each day. LEVELUP turns it into XP, streaks and levels, then Claude reads your history and tells you what it finds.</p>
+ <p class="lead">Log what you do each day. LEVELUP turns it into XP, streaks and levels, then Gemini reads your history and tells you what it finds.</p>
  <div class="row"><a class="btn p" href="#progress">Start your journey</a><a class="btn" href="#how">See how it works</a></div></div>
  <div class="pn" role="group" aria-label="Your progress summary">
   <div class="lv"><div class="badge" aria-hidden="true" data-b="level"></div><div style="flex:1"><small>Level <span data-b="level"></span></small><p><strong><span data-b="into"></span> / <span data-b="cost"></span> XP</strong></p><progress class="xpbar" aria-label="XP toward next level"></progress></div></div>
@@ -83,7 +83,7 @@ footer{border-top:1px solid var(--ln);padding:28px 0;color:var(--mu);font-size:.
   <p style="margin-top:14px"><strong data-b="streak"></strong> day streak · <span data-b="left"></span> XP to next level</p>
  </div></div></section>
 <section id="how"><div class="w"><h2>Four steps, repeated daily.</h2>
-<ol class="how"><li><h3>Choose</h3><p>Create the habits that matter to you.</p></li><li><h3>Complete</h3><p>Mark each one done as your day goes.</p></li><li><h3>Progress</h3><p>Earn XP, extend streaks, level up.</p></li><li><h3>Understand</h3><p>Claude reads your numbers and explains the patterns.</p></li></ol></div></section>
+<ol class="how"><li><h3>Choose</h3><p>Create the habits that matter to you.</p></li><li><h3>Complete</h3><p>Mark each one done as your day goes.</p></li><li><h3>Progress</h3><p>Earn XP, extend streaks, level up.</p></li><li><h3>Understand</h3><p>Gemini reads your numbers and explains the patterns.</p></li></ol></div></section>
 <section id="progress"><div class="w"><h2>Every day counts.</h2>
 <p class="lead">This is the working app. Add a habit, mark it done, and watch XP, streaks and level respond. Data is saved in this browser only.</p>
 <div class="grid two">
@@ -97,10 +97,10 @@ footer{border-top:1px solid var(--ln);padding:28px 0;color:var(--mu);font-size:.
   <h3 style="margin-top:16px">Completion by day, last 7 days (%)</h3><ul class="ch" id="ch"></ul></div></div>
  <p id="msg" role="status" class="mu" style="margin-top:12px;min-height:1.4em"></p></div></section>
 <section id="insights"><div class="w"><h2>Your data has patterns.</h2>
-<p class="lead">Claude reads numbers computed from your log, never your raw notes. Each card shows the evidence behind it. If the AI is unavailable, you get locally computed insights instead, clearly labelled.</p>
+<p class="lead">Gemini reads numbers computed from your log, never your raw notes. Each card shows the evidence behind it. If the AI is unavailable, you get locally computed insights instead, clearly labelled.</p>
 <div class="row"><button class="btn v" id="run" type="button">Get insights</button></div>
 <p id="status" role="status"></p><div class="grid cards" id="cards"></div><div id="src"></div></div></section>
 </main>
-<footer><div class="w">LEVELUP · FlyRank capstone project. Habit names are sent to the Claude API when you request insights.</div></footer>
+<footer><div class="w">LEVELUP · FlyRank capstone project. Habit names are sent to the Gemini API when you request insights.</div></footer>
 <script type="module" src="/src/main.js"></script>
 </body></html>

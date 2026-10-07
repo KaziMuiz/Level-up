@@ -1,6 +1,6 @@
 # Deployment checklist (sign off before release)
 - [ ] `npm test` passes; coverage >= 50% (current: src/ 100%)
-- [ ] `ANTHROPIC_API_KEY` set in Vercel env vars, not committed (`git log -p | grep sk-ant` is empty)
+- [ ] `GEMINI_API_KEY` set in Vercel env vars, not committed (`git log -p | grep sk-ant` is empty)
 - [ ] Production URL loads on mobile and desktop; add/complete habit works
 - [ ] Get Insights works with key; with key removed it shows "Computed locally" (error state screenshot)
 - [ ] Lighthouse mobile >= 85 (target 90); axe/WAVE: no AA violations

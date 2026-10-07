@@ -27,7 +27,7 @@ $('#clear').addEventListener('click',()=>{habits=[];Store.save(habits);render();
 function cards(list){return list.length?list.map(o=>`<article class="pn ic"><h3>${esc(o.headline)}</h3><p>${esc(o.explanation)}</p><p class="tip"><strong>Try this:</strong> ${esc(o.suggestion)}</p><ul>${o.evidence.map(e=>`<li>${esc(e.label)}: ${e.value}</li>`).join('')}</ul></article>`).join(''):'<p class="mu">Add a habit and log a few days. Insights appear once there is history to read.</p>'}
 $('#run').addEventListener('click',async()=>{if(busy)return;busy=true;const b=$('#run');b.disabled=true;b.setAttribute('aria-busy','true');$('#status').textContent='Analyzing your history…';
  try{const{source,insights}=await requestInsights(habits);$('#cards').innerHTML=cards(insights);
-  $('#src').innerHTML=insights.length?`<span class="src ${source==='ai'?'ai':''}">${source==='ai'?'Written by Claude from your numbers':'Computed locally (AI unavailable)'}</span>`:'';
+  $('#src').innerHTML=insights.length?`<span class="src ${source==='ai'?'ai':''}">${source==='ai'?'Written by Gemini from your numbers':'Computed locally (AI unavailable)'}</span>`:'';
   $('#status').textContent=insights.length?(source==='ai'?'Insights ready.':'AI unavailable. Showing locally computed insights.'):'Not enough data yet.'}
  catch{$('#status').textContent='Could not compute insights. Try again.'}
  finally{busy=false;b.disabled=false;b.removeAttribute('aria-busy')}});
