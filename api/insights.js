@@ -1,5 +1,5 @@
 import{validateInsights}from'../src/validate.js';
-const MODEL='gemini-2.5-flash';
+const MODEL='gemini-3.6-flash';
 const SYSTEM='You coach habit tracking. Use ONLY the numbers in the JSON the user sends. Never invent numbers or facts. Return 1-3 insights, each with a short headline, an explanation, one concrete suggestion, and evidence values copied exactly from the input.';
 const S={type:'STRING'};
 const SCHEMA={type:'OBJECT',required:['insights'],properties:{insights:{type:'ARRAY',minItems:1,maxItems:3,items:{type:'OBJECT',required:['headline','explanation','suggestion','evidence'],properties:{headline:S,explanation:S,suggestion:S,evidence:{type:'ARRAY',minItems:1,items:{type:'OBJECT',required:['label','value'],properties:{label:S,value:{type:'NUMBER'}}}}}}}}};
