@@ -1,0 +1,21 @@
+import{describe,it,expect,vi,afterEach,beforeEach}from'vitest';
+import handler from'../api/insights.js';
+const facts={windowDays:35,habits:[{name:'Gym',rate30:77,streak:1,weakestWeekday:null}]};
+const good={insights:[{headline:'h',explanation:'e',suggestion:'s',evidence:[{label:'rate',value:77}]}]};
+const gem=text=>({ok:true,status:200,json:async()=>({candidates:[{content:{parts:[{text}]}}]})});
+const fail=status=>({ok:false,status,text:async()=>'error'});
+const run=async req=>{const res={code:0,body:null,status(c){res.code=c;return res},json(b){res.body=b;return res}};await handler(req,res);return res};
+const post={method:'POST',body:{facts}};
+beforeEach(()=>vi.spyOn(console,'error').mockImplementation(()=>{}));
+afterEach(()=>{vi.restoreAllMocks();vi.unstubAllGlobals();delete process.env.GEMINI_API_KEY});
+describe('api/insights',()=>{
+ it('rejects non-POST',async()=>expect((await run({method:'GET'})).code).toBe(405));
+ it('rejects a bad body',async()=>expect((await run({method:'POST',body:{}})).code).toBe(400));
+ it('returns 503 when the key is missing',async()=>expect((await run(post)).code).toBe(503));
+ it('returns validated insights',async()=>{process.env.GEMINI_API_KEY='k';vi.stubGlobal('fetch',vi.fn(async()=>gem(JSON.stringify(good))));const r=await run(post);expect(r.code).toBe(200);expect(r.body.insights).toHaveLength(1)});
+ it('rejects numbers that are not in the input',async()=>{process.env.GEMINI_API_KEY='k';const bad={insights:[{...good.insights[0],evidence:[{label:'x',value:99}]}]};vi.stubGlobal('fetch',vi.fn(async()=>gem(JSON.stringify(bad))));expect((await run(post)).body.error).toBe('invalid_output')});
+ it('rejects a reply that is not JSON',async()=>{process.env.GEMINI_API_KEY='k';vi.stubGlobal('fetch',vi.fn(async()=>gem('not json')));expect((await run(post)).code).toBe(502)});
+ it('tries the second model when the first is busy',async()=>{process.env.GEMINI_API_KEY='k';const f=vi.fn().mockResolvedValueOnce(fail(503)).mockResolvedValueOnce(gem(JSON.stringify(good)));vi.stubGlobal('fetch',f);const r=await run(post);expect(f).toHaveBeenCalledTimes(2);expect(r.code).toBe(200)});
+ it('does not retry on a permanent error',async()=>{process.env.GEMINI_API_KEY='k';const f=vi.fn(async()=>fail(404));vi.stubGlobal('fetch',f);const r=await run(post);expect(f).toHaveBeenCalledTimes(1);expect(r.body).toEqual({error:'upstream'})});
+ it('returns 504 when the network fails',async()=>{process.env.GEMINI_API_KEY='k';vi.stubGlobal('fetch',vi.fn(async()=>{throw new Error('down')}));expect((await run(post)).code).toBe(504)});
+});

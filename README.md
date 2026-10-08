@@ -29,7 +29,9 @@ The browser computes numeric facts (per-habit rate, streak, weakest weekday) and
 Timeout (8 s server, 9 s client), HTTP error, missing key, malformed or ungrounded output: all show locally computed insights labelled "Computed locally". Covered by `tests/ai.test.js`.
 
 ## Testing evidence
-`npm run coverage`: 21 tests pass, 100% line coverage on `src/` logic modules. Paste your own terminal screenshot here. E2E flow is not included; add one Playwright test if time allows.
+`npm run coverage`: 30 tests pass; 100% statement and line coverage on `src/logic.js`, `src/validate.js`, `src/insights-client.js` and `api/insights.js`. Tests cover XP, levels and streaks, the AI-output validator (including rejecting invented numbers), the client fallback, and the serverless endpoint (bad input, missing key, model retry, upstream errors, timeouts).
+
+Not unit-tested: the UI code (`src/main.js`). It was checked with axe DevTools, Lighthouse and a manual keyboard test. A Playwright end-to-end test is a possible next step.
 
 ## Performance & accessibility
 Lighthouse (mobile): _fill in_ · axe/WAVE: _fill in_ · One fix made from the audit: _describe before/after_
