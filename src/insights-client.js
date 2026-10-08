@@ -1,5 +1,5 @@
 import{buildFacts,localInsights}from'./logic.js';import{validateInsights}from'./validate.js';
-export async function requestInsights(habits,{now=new Date(),fetchFn=fetch,timeoutMs=9000}={}){
+export async function requestInsights(habits,{now=new Date(),fetchFn=fetch,timeoutMs=18000}={}){
  const facts=buildFacts(habits,now);
  try{
   const r=await fetchFn('/api/insights',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({facts}),signal:AbortSignal.timeout(timeoutMs)});

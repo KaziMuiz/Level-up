@@ -26,7 +26,7 @@ npm test                       # unit tests;  npm run coverage  # coverage repor
 The browser computes numeric facts (per-habit rate, streak, weakest weekday) and sends only those. `api/insights.js` calls `Gemini-haiku-4-5-20251001` with a forced tool call (`report_insights`) so the reply is structured JSON: headline, explanation, one suggestion, evidence. The system prompt says to use only supplied numbers. `validateInsights` then rejects any evidence value not present in the input, so invented statistics never reach the screen. Haiku keeps latency and cost low for a short summarisation task. Habit names are sent to the API.
 
 ## Failure modes (fails safely)
-Timeout (8 s server, 9 s client), HTTP error, missing key, malformed or ungrounded output: all show locally computed insights labelled "Computed locally". Covered by `tests/ai.test.js`.
+Timeout (15 s server, 18 s client), HTTP error, missing key, malformed or ungrounded output: all show locally computed insights labelled "Computed locally". Covered by `tests/ai.test.js`.
 
 ## Testing evidence
 `npm run coverage`: 30 tests pass; 100% statement and line coverage on `src/logic.js`, `src/validate.js`, `src/insights-client.js` and `api/insights.js`. Tests cover XP, levels and streaks, the AI-output validator (including rejecting invented numbers), the client fallback, and the serverless endpoint (bad input, missing key, model retry, upstream errors, timeouts).

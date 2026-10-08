@@ -8,7 +8,7 @@ export default async function handler(req,res){
  const facts=req.body?.facts;
  if(!facts||!Array.isArray(facts.habits)||facts.habits.length>20)return res.status(400).json({error:'bad_request'});
  if(!process.env.GEMINI_API_KEY)return res.status(503).json({error:'not_configured'});
- const ctl=new AbortController(),t=setTimeout(()=>ctl.abort(),8000);
+ const ctl=new AbortController(),t=setTimeout(()=>ctl.abort(),15000);
  const body=JSON.stringify({systemInstruction:{parts:[{text:SYSTEM}]},contents:[{role:'user',parts:[{text:JSON.stringify(facts)}]}],generationConfig:{responseMimeType:'application/json',responseSchema:SCHEMA,maxOutputTokens:800,temperature:0.3}});
  try{
   let r;
