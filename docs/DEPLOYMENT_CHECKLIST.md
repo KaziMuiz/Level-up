@@ -1,10 +1,11 @@
-# Deployment checklist (sign off before release)
-- [ ] `npm test` passes; coverage >= 50% (current: src/ 100%)
-- [ ] `GEMINI_API_KEY` set in Vercel env vars, not committed (`git log -p | grep sk-ant` is empty)
-- [ ] Production URL loads on mobile and desktop; add/complete habit works
-- [ ] Get Insights works with key; with key removed it shows "Computed locally" (error state screenshot)
-- [ ] Lighthouse mobile >= 85 (target 90); axe/WAVE: no AA violations
+# Deployment checklist
+- [x] `npm test` passes: 30 tests, 100% coverage on logic and API files
+- [x] `GEMINI_API_KEY` set in Vercel environment variables, not committed to the repo
+- [x] Production URL loads on mobile and desktop; adding and completing a habit works
+- [x] Get Insights works with the key; without the AI it shows "Computed locally" (error state screenshot saved)
+- [x] Lighthouse mobile 100 / 100 / 100 / 100; axe DevTools 0 issues (WCAG 2.1 AA, best practices on)
 - [ ] README setup verified from a fresh clone
-- [ ] Rollback known: promote previous Vercel deployment / `git revert`
-- [ ] Monitoring: Vercel logs checked for `/api/insights` 5xx after release
-Signed off by: ______  Date: ______
+- [x] Rollback known: promote the previous deployment in Vercel, or `git revert` and push to main
+- [x] Monitoring: Vercel runtime logs checked for /api/insights errors after release
+
+Signed off by: Qazi Abdul Muiz    Date: 8 October 2026
