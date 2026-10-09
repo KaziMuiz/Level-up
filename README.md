@@ -2,7 +2,7 @@
 
 Habit tracker that turns daily logs into XP, streaks and levels, then uses Gemini to explain your patterns.
 
-**Problem / user / why:** _(1 paragraph: who needs this, what it solves, why you chose it)_
+**Problem / user / why:** LEVELUP is designed for anyone who wants a tangible, daily record of the good habits they actually complete—like working out or praying. It solves the problem that personal progress is often invisible because habits are easy to forget and hard to track consistently. Users log what they did each day, and LEVELUP turns this into XP, streaks, and levels, making progress visible and motivating. It then sends only computed numbers and your habit names to Google Gemini, which provides brief insights—such as patterns or weak spots backed by real evidence—on each habit card. I chose this project because it’s small enough to build well but complex enough to require genuine AI integration: the AI uses only your own data (checked for accuracy against your input), and the app automatically falls back to local insights if the AI isn’t available.
 **Live:** https://level-up-eta-six.vercel.app
 
 ## Run locally (under 5 minutes)
