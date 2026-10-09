@@ -3,15 +3,20 @@
 Habit tracker that turns daily logs into XP, streaks and levels, then uses Gemini to explain your patterns.
 
 **Problem / user / why:** _(1 paragraph: who needs this, what it solves, why you chose it)_
-**Live:** _<your Vercel URL>_
+**Live:** https://level-up-eta-six.vercel.app
 
 ## Run locally (under 5 minutes)
+Requires Node 18+ (check with `node -v`).
+
 ```bash
 npm install
-cp .env.example .env.local     # add GEMINI_API_KEY
-npx vercel dev                 # runs site + /api/insights (or `npm run dev` for UI only: AI falls back to local)
-npm test                       # unit tests;  npm run coverage  # coverage report
+npm run dev        # site only: opens http://localhost:5173, AI insights fall back to local
+npm test           # unit tests
+npm run coverage   # coverage report
 ```
+
+To try the real AI locally, copy `.env.example` to `.env.local`, add your `GEMINI_API_KEY` (free key from aistudio.google.com), and run `npx vercel dev` instead of `npm run dev`.
+
 
 ## Architecture
 | Path | Role |
@@ -34,7 +39,11 @@ Timeout (15 s server, 18 s client), HTTP error, missing key, malformed or ungrou
 Not unit-tested: the UI code (`src/main.js`). It was checked with axe DevTools, Lighthouse and a manual keyboard test. A Playwright end-to-end test is a possible next step.
 
 ## Performance & accessibility
-Lighthouse (mobile): _fill in_ · axe/WAVE: _fill in_ · One fix made from the audit: _describe before/after_
+   Lighthouse (mobile, live URL, three runs): Performance 100, Accessibility 100, Best Practices 100, SEO 100. One earlier run scored 65 on performance; I re-ran in a clean private window and it did not repeat, so I treated it as noise from browser extensions.
+
+   axe DevTools (WCAG 2.1 AA, best practices on): 0 issues.
+
+   Improvements: the automated audits found no violations. Fixes came from reading the code and from my own review: focus was lost after marking a habit done (now restored), the habit button label changed with its state (now a fixed label plus aria-pressed), and a CSS media-query typo broke the desktop layout (found by viewing the page, then fixed).
 
 ## Deployment & rollback
 See `docs/DEPLOYMENT_CHECKLIST.md`. Rollback: Vercel dashboard -> Deployments -> promote previous deployment (or `git revert` and push `main`).
